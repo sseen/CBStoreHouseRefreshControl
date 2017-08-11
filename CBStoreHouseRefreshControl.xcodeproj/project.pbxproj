@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0BFB9BAA1A084144008C790A /* CBStoreHouseRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BFB9BA91A084144008C790A /* CBStoreHouseRefreshControl.m */; };
+		92DDBB7E1F3D9A8700D503A5 /* zf.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92DDBB7D1F3D9A8700D503A5 /* zf.plist */; };
 		FF6F542D1A086CC200BE5C52 /* storehouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF6F542C1A086CC200BE5C52 /* storehouse.plist */; };
 		FFB290C919FCC1320058F2BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB290C819FCC1320058F2BF /* main.m */; };
 		FFB290CC19FCC1320058F2BF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB290CB19FCC1320058F2BF /* AppDelegate.m */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		0BFB9BA91A084144008C790A /* CBStoreHouseRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBStoreHouseRefreshControl.m; path = Class/CBStoreHouseRefreshControl.m; sourceTree = "<group>"; };
+		92DDBB7D1F3D9A8700D503A5 /* zf.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = zf.plist; sourceTree = "<group>"; };
 		FF6F542C1A086CC200BE5C52 /* storehouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = storehouse.plist; sourceTree = "<group>"; };
 		FFB290C319FCC1320058F2BF /* CBStoreHouseRefreshControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBStoreHouseRefreshControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFB290C719FCC1320058F2BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		FFB290C519FCC1320058F2BF /* CBStoreHouseRefreshControl */ = {
 			isa = PBXGroup;
 			children = (
+				92DDBB7D1F3D9A8700D503A5 /* zf.plist */,
 				FFFB8C9B1A0325D50007988E /* AKTA.plist */,
 				FF6F542C1A086CC200BE5C52 /* storehouse.plist */,
 				FFB290CA19FCC1320058F2BF /* AppDelegate.h */,
@@ -224,6 +227,7 @@
 				FFFB8C9C1A0325D50007988E /* AKTA.plist in Resources */,
 				FFB290D719FCC1320058F2BF /* LaunchScreen.xib in Resources */,
 				FFB290D419FCC1320058F2BF /* Images.xcassets in Resources */,
+				92DDBB7E1F3D9A8700D503A5 /* zf.plist in Resources */,
 				FF6F542D1A086CC200BE5C52 /* storehouse.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
