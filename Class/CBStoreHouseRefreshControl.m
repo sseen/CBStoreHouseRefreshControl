@@ -136,6 +136,11 @@ NSString *const yKey = @"y";
 
 - (void)scrollViewDidScroll
 {
+    if (_scrollView.contentSize.height - _scrollView.contentOffset.y < _scrollView.frame.size.height - self.dropHeight) {
+        NSLog(@" you reached end of the table");
+        [self updateBarItemsWithProgress:self.animationProgress];
+    }
+    
     if (self.originalTopContentInset == 0) self.originalTopContentInset = self.scrollView.contentInset.top;
     self.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, self.realContentOffsetY*krelativeHeightFactor);
     if (self.state == CBStoreHouseRefreshControlStateIdle)
@@ -144,7 +149,10 @@ NSString *const yKey = @"y";
 
 - (void)scrollViewDidEndDragging
 {
-    if (self.state == CBStoreHouseRefreshControlStateIdle && self.realContentOffsetY < -self.dropHeight) {
+    
+    
+    if ((self.state == CBStoreHouseRefreshControlStateIdle && self.realContentOffsetY < -self.dropHeight)  ||
+        _scrollView.contentSize.height - _scrollView.contentOffset.y < _scrollView.frame.size.height - self.dropHeight ) {
 
         if (self.animationProgress == 1) self.state = CBStoreHouseRefreshControlStateRefreshing;
         
