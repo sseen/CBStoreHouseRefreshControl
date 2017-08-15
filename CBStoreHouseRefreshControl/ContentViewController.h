@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @class CBStoreHouseRefreshControl;
+@class CBStoreHouseInfinitRefreshControl;
 
 @interface ContentViewController : UITableViewController
 
 @property (nonatomic, strong) CBStoreHouseRefreshControl *storeHouseRefreshControl;
+
+@property (nonatomic, strong) CBStoreHouseInfinitRefreshControl *storeHouseRefreshControl2;
 
 @end
 

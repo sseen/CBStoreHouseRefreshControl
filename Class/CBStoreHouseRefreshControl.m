@@ -202,7 +202,7 @@
                 realProgress = 0;
             else
                 realProgress = MIN(1, (progress - startPadding)/self.internalAnimationFactor);
-            // NSLog(@"index %d progress %f, %f, %f", index, progress,  barItem.translationX*(1-realProgress), self.dropHeight*(1-realProgress));
+            NSLog(@"index %@ progress %f, %f, %f", NSStringFromCGRect(barItem.frame), progress,  barItem.translationX*(1-realProgress), self.dropHeight*(1-realProgress));
             barItem.transform = CGAffineTransformMakeTranslation(barItem.translationX*(1-realProgress), -self.dropHeight*(1-realProgress));
             barItem.transform = CGAffineTransformRotate(barItem.transform, M_PI*(realProgress));
             barItem.transform = CGAffineTransformScale(barItem.transform, realProgress, realProgress);

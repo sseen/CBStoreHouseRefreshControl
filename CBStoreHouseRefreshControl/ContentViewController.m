@@ -8,6 +8,7 @@
 
 #import "ContentViewController.h"
 #import "CBStoreHouseRefreshControl.h"
+#import "CBStoreHouseInfinitRefreshControl.h"
 
 @interface ContentViewController ()
 
@@ -37,7 +38,7 @@
     // Let the show begins
     self.storeHouseRefreshControl = [CBStoreHouseRefreshControl attachToScrollView:self.tableView target:self refreshAction:@selector(refreshTriggered:) plist:@"zf" color:[UIColor colorWithWhite:45.f/255.f alpha:1] lineWidth:1.5 dropHeight:80 scale:1 horizontalRandomness:150 reverseLoadingAnimation:YES internalAnimationFactor:0.5];
     
-    //self.storeHouseRefreshControl = [CBStoreHouseRefreshControl attachToScrollView:self.tableView target:self refreshAction:@selector(refreshTriggered:) plist:@"AKTA" color:[UIColor whiteColor] lineWidth:2 dropHeight:80 scale:0.7 horizontalRandomness:300 reverseLoadingAnimation:NO internalAnimationFactor:0.7];
+    self.storeHouseRefreshControl2 = [CBStoreHouseInfinitRefreshControl attachToScrollView:self.tableView target:self refreshAction:@selector(refreshTriggered:) plist:@"AKTA" color:[UIColor colorWithWhite:45.f/255.f alpha:1] lineWidth:2 dropHeight:80 scale:0.7 horizontalRandomness:300 reverseLoadingAnimation:NO internalAnimationFactor:0.7];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,11 +73,13 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.storeHouseRefreshControl scrollViewDidScroll];
+    [self.storeHouseRefreshControl2 scrollViewDidScroll];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [self.storeHouseRefreshControl scrollViewDidEndDragging];
+    [self.storeHouseRefreshControl2 scrollViewDidEndDragging];
 }
 
 #pragma mark - Listening for the user to trigger a refresh
@@ -89,6 +92,7 @@
 - (void)finishRefreshControl
 {
     [self.storeHouseRefreshControl finishingLoading];
+    [self.storeHouseRefreshControl2 finishingLoading];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle
