@@ -26,3 +26,18 @@ extern  const CGFloat kbarDarkAlpha                    ;
 extern  const CGFloat kloadingTimingOffset             ;
 extern  const CGFloat kdisappearDuration               ;
 extern  const CGFloat krelativeHeightFactor            ;
+
+
+#ifdef __OBJC__
+#define LOGDEBUG 0
+#ifdef LOGDEBUG
+#define NSLog(format, ...) do {                                             \
+fprintf(stderr, "[%s line.%d]%s>",     \
+[[SSNDateTime dateToStringUseFormatter:[NSDate date] formatter:LogSSS] UTF8String], \
+__LINE__, __PRETTY_FUNCTION__);                        \
+printf("%s\n", [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String]);           \
+} while (0)
+#else
+#define NSLog(format, ...) nil
+#endif
+#endif
