@@ -8,23 +8,8 @@
 
 #import "CBStoreHouseRefreshControl.h"
 #import "BarItem.h"
+#import "CBHeader.h"
 
-static const CGFloat kloadingIndividualAnimationTiming = 0.8;
-static const CGFloat kbarDarkAlpha = 0.4;
-static const CGFloat kloadingTimingOffset = 0.1;
-static const CGFloat kdisappearDuration = 1.2;
-static const CGFloat krelativeHeightFactor = 2.f/5.f;
-
-typedef enum {
-    CBStoreHouseRefreshControlStateIdle = 0,
-    CBStoreHouseRefreshControlStateRefreshing = 1,
-    CBStoreHouseRefreshControlStateDisappearing = 2
-} CBStoreHouseRefreshControlState;
-
-NSString *const startPointKey = @"startPoints";
-NSString *const endPointKey = @"endPoints";
-NSString *const xKey = @"x";
-NSString *const yKey = @"y";
 
 @interface CBStoreHouseRefreshControl () <UIScrollViewDelegate>
 
@@ -124,7 +109,9 @@ NSString *const yKey = @"y";
     refreshControl.barItems = [NSArray arrayWithArray:mutableBarItems];
     refreshControl.frame = CGRectMake(0, 0, width, height);
     refreshControl.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, 0);
+    
     for (BarItem *barItem in refreshControl.barItems) {
+        NSLog(@"--- anchorPoint:%@ frame:%@",NSStringFromCGPoint(barItem.layer.anchorPoint) , NSStringFromCGRect(barItem.frame));
         [barItem setupWithFrame:refreshControl.frame];
     }
 
@@ -136,6 +123,7 @@ NSString *const yKey = @"y";
 
 - (void)scrollViewDidScroll
 {
+    // drag from bottom
     if (_scrollView.contentSize.height - _scrollView.contentOffset.y < _scrollView.frame.size.height - self.dropHeight) {
         NSLog(@" you reached end of the table");
         [self updateBarItemsWithProgress:self.animationProgress];
@@ -199,6 +187,7 @@ NSString *const yKey = @"y";
         CGFloat startPadding = (1 - self.internalAnimationFactor) / self.barItems.count * index;
         CGFloat endPadding = 1 - self.internalAnimationFactor - startPadding;
         
+        
         if (progress == 1 || progress >= 1 - endPadding) {
             barItem.transform = CGAffineTransformIdentity;
             barItem.alpha = kbarDarkAlpha;
@@ -208,10 +197,12 @@ NSString *const yKey = @"y";
         }
         else {
             CGFloat realProgress;
+            
             if (progress <= startPadding)
                 realProgress = 0;
             else
                 realProgress = MIN(1, (progress - startPadding)/self.internalAnimationFactor);
+            // NSLog(@"index %d progress %f, %f, %f", index, progress,  barItem.translationX*(1-realProgress), self.dropHeight*(1-realProgress));
             barItem.transform = CGAffineTransformMakeTranslation(barItem.translationX*(1-realProgress), -self.dropHeight*(1-realProgress));
             barItem.transform = CGAffineTransformRotate(barItem.transform, M_PI*(realProgress));
             barItem.transform = CGAffineTransformScale(barItem.transform, realProgress, realProgress);

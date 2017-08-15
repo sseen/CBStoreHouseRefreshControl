@@ -43,6 +43,7 @@
 {
     self.layer.anchorPoint = CGPointMake(self.middlePoint.x/self.frame.size.width, self.middlePoint.y/self.frame.size.height);
     self.frame = CGRectMake(self.frame.origin.x + self.middlePoint.x - self.frame.size.width/2, self.frame.origin.y + self.middlePoint.y - self.frame.size.height/2, self.frame.size.width, self.frame.size.height);
+    NSLog(@"%@, anchorPoint:%@ frame:%@", NSStringFromCGPoint(self.middlePoint), NSStringFromCGPoint(self.layer.anchorPoint) , NSStringFromCGRect(self.frame));
 }
 
 - (void)setHorizontalRandomness:(int)horizontalRandomness dropHeight:(CGFloat)dropHeight
