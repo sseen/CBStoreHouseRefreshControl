@@ -54,6 +54,13 @@
     self.transform = CGAffineTransformMakeTranslation(self.translationX, -dropHeight);
 }
 
+- (void)setBottomHorizontalRandomness:(int)horizontalRandomness dropHeight:(CGFloat)dropHeight
+{
+    int randomNumber = - horizontalRandomness + arc4random()%horizontalRandomness*2;
+    self.translationX = randomNumber;
+    self.transform = CGAffineTransformMakeTranslation(self.translationX, [UIScreen mainScreen].bounds.size.height+dropHeight);
+}
+
 - (void)drawRect:(CGRect)rect {
     UIBezierPath* bezierPath = UIBezierPath.bezierPath;
     [bezierPath moveToPoint:self.startPoint];

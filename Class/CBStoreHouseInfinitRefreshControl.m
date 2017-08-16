@@ -91,7 +91,7 @@
         if (endPoint.y > height) height = endPoint.y;
     }
     
-    refreshControl.frame = CGRectMake(0, refreshControl.sHeight, width, height);
+    refreshControl.frame = CGRectMake(0, 0, width, height);
     
     // Create bar items
     NSMutableArray *mutableBarItems = [[NSMutableArray alloc] init];
@@ -108,7 +108,7 @@
         [mutableBarItems addObject:barItem];
         [refreshControl addSubview:barItem];
         
-        [barItem setHorizontalRandomness:refreshControl.horizontalRandomness dropHeight:refreshControl.dropHeight];
+        [barItem setBottomHorizontalRandomness:refreshControl.horizontalRandomness dropHeight:refreshControl.dropHeight];
     }
     
     refreshControl.barItems = [NSArray arrayWithArray:mutableBarItems];
@@ -129,8 +129,13 @@
 - (void)scrollViewDidScroll
 {
     // drag from bottom
-    if (_scrollView.contentSize.height - _scrollView.contentOffset.y < _scrollView.frame.size.height ) {
-        NSLog(@" you reached end of the table");
+    if (self.originalTopContentInset == 0) self.originalTopContentInset = self.scrollView.contentInset.top;
+    self.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, _scrollView.contentSize.height - fabs(self.realContentOffsetY*krelativeHeightFactor));
+    // NSLog(@"-s-s- %f , %f, %f, %f, %f",self.scrollView.contentInset.top,self.scrollView.contentInset.bottom, self.realContentOffsetY, krelativeHeightFactor, self.realContentOffsetY*krelativeHeightFactor);
+    
+    if (_scrollView.contentSize.height - _scrollView.contentOffset.y <= _scrollView.frame.size.height ) {
+        
+        NSLog(@" you reached end of the table %f, %f, %f",_scrollView.contentSize.height, _scrollView.contentOffset.y, _scrollView.contentSize.height - _scrollView.contentOffset.y - _scrollView.frame.size.height);
         [self updateBarItemsWithProgress:self.animationProgress];
     }
     
@@ -187,23 +192,23 @@
         CGFloat startPadding = (1 - self.internalAnimationFactor) / self.barItems.count * index;
         CGFloat endPadding = 1 - self.internalAnimationFactor - startPadding;
         
-         // NSLog(@"index %d progress %f", index, progress);
+        CGFloat realProgress;
+        
+        if (progress <= startPadding)
+            realProgress = 0;
+        else
+            realProgress = MIN(1, (progress - startPadding)/self.internalAnimationFactor);
+        NSLog(@"startPadding %f:%f, %@ progress %f, %f, %f",startPadding,endPadding, barItem, realProgress,  barItem.translationX*(1-realProgress), self.sHeight - self.dropHeight*(1-realProgress));
         
         if (progress == 1 || progress >= 1 - endPadding) {
             barItem.transform = CGAffineTransformIdentity;
             barItem.alpha = kbarDarkAlpha;
         }
         else if (progress == 0) {
-            [barItem setHorizontalRandomness:self.horizontalRandomness dropHeight:self.dropHeight];
+            [barItem setBottomHorizontalRandomness:self.horizontalRandomness dropHeight:self.dropHeight];
         }
         else {
-            CGFloat realProgress;
             
-            if (progress <= startPadding)
-                realProgress = 0;
-            else
-                realProgress = MIN(1, (progress - startPadding)/self.internalAnimationFactor);
-            NSLog(@"index %@ progress %f, %f, %f", NSStringFromCGRect(barItem.frame), progress,  barItem.translationX*(1-realProgress), self.sHeight - self.dropHeight*(1-realProgress));
             barItem.transform = CGAffineTransformMakeTranslation(barItem.translationX*(1-realProgress), self.sHeight - self.dropHeight*(1-realProgress));
             barItem.transform = CGAffineTransformRotate(barItem.transform, M_PI*(realProgress));
             barItem.transform = CGAffineTransformScale(barItem.transform, realProgress, realProgress);

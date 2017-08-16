@@ -123,14 +123,9 @@
 
 - (void)scrollViewDidScroll
 {
-    // drag from bottom
-    if (_scrollView.contentSize.height - _scrollView.contentOffset.y < _scrollView.frame.size.height - self.dropHeight) {
-        NSLog(@" you reached end of the table");
-        [self updateBarItemsWithProgress:self.animationProgress];
-    }
-    
     if (self.originalTopContentInset == 0) self.originalTopContentInset = self.scrollView.contentInset.top;
     self.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, self.realContentOffsetY*krelativeHeightFactor);
+    // NSLog(@"%f , %f, %f, %f, %f",self.scrollView.contentInset.top,self.scrollView.contentInset.bottom, self.realContentOffsetY, krelativeHeightFactor, self.realContentOffsetY*krelativeHeightFactor);
     if (self.state == CBStoreHouseRefreshControlStateIdle)
         [self updateBarItemsWithProgress:self.animationProgress];
 }
@@ -186,7 +181,14 @@
         NSInteger index = [self.barItems indexOfObject:barItem];
         CGFloat startPadding = (1 - self.internalAnimationFactor) / self.barItems.count * index;
         CGFloat endPadding = 1 - self.internalAnimationFactor - startPadding;
+ 
+        CGFloat realProgress;
         
+        if (progress <= startPadding)
+            realProgress = 0;
+        else
+            realProgress = MIN(1, (progress - startPadding)/self.internalAnimationFactor);
+        // NSLog(@"index %@ progress %f, %f, %f", NSStringFromCGRect(barItem.frame), progress,  barItem.translationX*(1-realProgress), self.dropHeight*(1-realProgress));
         
         if (progress == 1 || progress >= 1 - endPadding) {
             barItem.transform = CGAffineTransformIdentity;
@@ -196,13 +198,7 @@
             [barItem setHorizontalRandomness:self.horizontalRandomness dropHeight:self.dropHeight];
         }
         else {
-            CGFloat realProgress;
             
-            if (progress <= startPadding)
-                realProgress = 0;
-            else
-                realProgress = MIN(1, (progress - startPadding)/self.internalAnimationFactor);
-            NSLog(@"index %@ progress %f, %f, %f", NSStringFromCGRect(barItem.frame), progress,  barItem.translationX*(1-realProgress), self.dropHeight*(1-realProgress));
             barItem.transform = CGAffineTransformMakeTranslation(barItem.translationX*(1-realProgress), -self.dropHeight*(1-realProgress));
             barItem.transform = CGAffineTransformRotate(barItem.transform, M_PI*(realProgress));
             barItem.transform = CGAffineTransformScale(barItem.transform, realProgress, realProgress);
