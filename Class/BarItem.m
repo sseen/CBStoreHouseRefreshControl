@@ -58,7 +58,8 @@
 {
     int randomNumber = - horizontalRandomness + arc4random()%horizontalRandomness*2;
     self.translationX = randomNumber;
-    self.transform = CGAffineTransformMakeTranslation(self.translationX, [UIScreen mainScreen].bounds.size.height+dropHeight);
+//    self.transform = CGAffineTransformMakeTranslation(self.translationX, -dropHeight);
+    self.transform = CGAffineTransformMakeTranslation(self.translationX, dropHeight);
 }
 
 - (void)drawRect:(CGRect)rect {

@@ -188,7 +188,7 @@
             realProgress = 0;
         else
             realProgress = MIN(1, (progress - startPadding)/self.internalAnimationFactor);
-        // NSLog(@"index %@ progress %f, %f, %f", NSStringFromCGRect(barItem.frame), progress,  barItem.translationX*(1-realProgress), self.dropHeight*(1-realProgress));
+        // NSLog(@"index %@ progress %f, %f", NSStringFromCGRect(barItem.frame), realProgress, self.dropHeight*(1-realProgress));
         
         if (progress == 1 || progress >= 1 - endPadding) {
             barItem.transform = CGAffineTransformIdentity;
@@ -249,6 +249,7 @@
 
 - (void)updateDisappearAnimation
 {
+    NSLog(@"sso");
     if (self.disappearProgress >= 0 && self.disappearProgress <= 1) {
         self.disappearProgress -= 1/60.f/kdisappearDuration;
         //60.f means this method get called 60 times per second

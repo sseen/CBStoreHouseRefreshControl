@@ -36,9 +36,9 @@
     self.tableView.tableFooterView = footer;
     
     // Let the show begins
-    self.storeHouseRefreshControl = [CBStoreHouseRefreshControl attachToScrollView:self.tableView target:self refreshAction:@selector(refreshTriggered:) plist:@"zf" color:[UIColor colorWithWhite:45.f/255.f alpha:1] lineWidth:1.5 dropHeight:80 scale:1 horizontalRandomness:150 reverseLoadingAnimation:YES internalAnimationFactor:0.5];
+    self.storeHouseRefreshControl = [CBStoreHouseRefreshControl attachToScrollView:self.tableView target:self refreshAction:@selector(refreshTriggered:) plist:@"AKTA" color:[UIColor colorWithWhite:45.f/255.f alpha:1] lineWidth:1.5 dropHeight:80 scale:1 horizontalRandomness:150 reverseLoadingAnimation:YES internalAnimationFactor:0.5];
     
-    self.storeHouseRefreshControl2 = [CBStoreHouseInfinitRefreshControl attachToScrollView:self.tableView target:self refreshAction:@selector(refreshTriggered:) plist:@"AKTA" color:[UIColor colorWithWhite:45.f/255.f alpha:1] lineWidth:2 dropHeight:80 scale:0.7 horizontalRandomness:300 reverseLoadingAnimation:NO internalAnimationFactor:0.7];
+    self.storeHouseRefreshControl2 = [CBStoreHouseInfinitRefreshControl attachToScrollView:self.tableView target:self refreshAction:@selector(refreshTriggered2:) plist:@"AKTA" color:[UIColor colorWithWhite:45.f/255.f alpha:1] lineWidth:2 dropHeight:80 scale:0.7 horizontalRandomness:300 reverseLoadingAnimation:NO internalAnimationFactor:0.7];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -89,9 +89,19 @@
     [self performSelector:@selector(finishRefreshControl) withObject:nil afterDelay:3 inModes:@[NSRunLoopCommonModes]];
 }
 
+- (void)refreshTriggered2:(id)sender
+{
+    [self performSelector:@selector(finishRefreshControl2) withObject:nil afterDelay:3 inModes:@[NSRunLoopCommonModes]];
+}
+
 - (void)finishRefreshControl
 {
     [self.storeHouseRefreshControl finishingLoading];
+}
+
+- (void)finishRefreshControl2
+{
+    NSLog(@"hello");
     [self.storeHouseRefreshControl2 finishingLoading];
 }
 

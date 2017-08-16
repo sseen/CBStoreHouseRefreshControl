@@ -115,10 +115,10 @@
     refreshControl.frame = CGRectMake(0, refreshControl.sHeight, width, height);
     refreshControl.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, refreshControl.sHeight);
     
-//    for (BarItem *barItem in refreshControl.barItems) {
-//        NSLog(@"*** anchorPoint:%@ frame:%@",NSStringFromCGPoint(barItem.layer.anchorPoint) , NSStringFromCGRect(barItem.frame));
-//        [barItem setupWithFrame:refreshControl.frame];
-//    }
+    for (BarItem *barItem in refreshControl.barItems) {
+        NSLog(@"*** anchorPoint:%@ frame:%@",NSStringFromCGPoint(barItem.layer.anchorPoint) , NSStringFromCGRect(barItem.frame));
+        [barItem setupWithFrame:refreshControl.frame];
+    }
     
     refreshControl.transform = CGAffineTransformMakeScale(scale, scale);
     return refreshControl;
@@ -128,8 +128,6 @@
 
 - (void)scrollViewDidScroll
 {
-    // drag from bottom
-    if (self.originalTopContentInset == 0) self.originalTopContentInset = self.scrollView.contentInset.top;
     self.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, _scrollView.contentSize.height - fabs(self.realContentOffsetY*krelativeHeightFactor));
     // NSLog(@"-s-s- %f , %f, %f, %f, %f",self.scrollView.contentInset.top,self.scrollView.contentInset.bottom, self.realContentOffsetY, krelativeHeightFactor, self.realContentOffsetY*krelativeHeightFactor);
     
@@ -145,14 +143,14 @@
 {
     
     
-    if (_scrollView.contentSize.height - _scrollView.contentOffset.y < _scrollView.frame.size.height  ) {
+    if (_scrollView.contentSize.height - _scrollView.contentOffset.y < _scrollView.frame.size.height - self.dropHeight ) {
         
         if (self.animationProgress == 1) self.state = CBStoreHouseRefreshControlStateRefreshing;
         
         if (self.state == CBStoreHouseRefreshControlStateRefreshing) {
             
             UIEdgeInsets newInsets = self.scrollView.contentInset;
-            newInsets.top = self.originalTopContentInset + self.dropHeight;
+            newInsets.bottom = self.originalTopContentInset + self.dropHeight;
             CGPoint contentOffset = self.scrollView.contentOffset;
             
             [UIView animateWithDuration:0 animations:^(void) {
@@ -198,7 +196,8 @@
             realProgress = 0;
         else
             realProgress = MIN(1, (progress - startPadding)/self.internalAnimationFactor);
-        NSLog(@"startPadding %f:%f, %@ progress %f, %f, %f",startPadding,endPadding, barItem, realProgress,  barItem.translationX*(1-realProgress), self.sHeight - self.dropHeight*(1-realProgress));
+        NSLog(@"sso %f", realProgress);
+        //NSLog(@"startPadding %f:%f, %@ progress %f, %f, %f",startPadding,endPadding, barItem, realProgress,  barItem.translationX*(1-realProgress), self.sHeight - self.dropHeight*(1-realProgress));
         
         if (progress == 1 || progress >= 1 - endPadding) {
             barItem.transform = CGAffineTransformIdentity;
@@ -209,7 +208,7 @@
         }
         else {
             
-            barItem.transform = CGAffineTransformMakeTranslation(barItem.translationX*(1-realProgress), self.sHeight - self.dropHeight*(1-realProgress));
+            barItem.transform = CGAffineTransformMakeTranslation(barItem.translationX*(1-realProgress), self.dropHeight*(1-realProgress));
             barItem.transform = CGAffineTransformRotate(barItem.transform, M_PI*(realProgress));
             barItem.transform = CGAffineTransformScale(barItem.transform, realProgress, realProgress);
             barItem.alpha = realProgress * kbarDarkAlpha;
@@ -270,10 +269,10 @@
 
 - (void)finishingLoading
 {
-    if ( _scrollView.contentSize.height - _scrollView.contentOffset.y < _scrollView.frame.size.height - self.dropHeight ) {
         self.state = CBStoreHouseRefreshControlStateDisappearing;
+    NSLog(@"%@", NSStringFromUIEdgeInsets( self.scrollView.contentInset));
         UIEdgeInsets newInsets = self.scrollView.contentInset;
-        newInsets.top = self.originalTopContentInset;
+    newInsets.bottom = 0;
         [UIView animateWithDuration:kdisappearDuration animations:^(void) {
             self.scrollView.contentInset = newInsets;
         } completion:^(BOOL finished) {
@@ -290,7 +289,6 @@
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateDisappearAnimation)];
         [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
         self.disappearProgress = 1;
-    }
     
 }
 
