@@ -36,7 +36,7 @@ extern  const CGFloat krelativeHeightFactor            ;
 #define NSLog(format, ...) do {                                             \
 fprintf(stderr, "[%s line.%d\t]%s] ",     \
 [[CBHeader dateToStringUseFormatter:[NSDate date] formatter:LogSSS] UTF8String], \
-__LINE__, [[CBHeader logFilename] UTF8String]);                        \
+__LINE__, [[[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__] componentsSeparatedByString:@" "][0] UTF8String]);                        \
 printf("%s\n", [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String]);           \
 } while (0)
 #else
@@ -48,6 +48,5 @@ printf("%s\n", [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String]); 
 
 + (NSString *)dateToStringUseFormatter:(NSDate *)date formatter:(NSString *)formatter ;
 
-+ (NSString *)logFilename;
 
 @end

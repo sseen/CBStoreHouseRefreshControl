@@ -36,10 +36,5 @@ NSString *const yKey            = @"y";
     return returnStr;
 }
 
-+ (NSString *)logFilename {
-    NSString *pretty_function = [NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__];
-    
-    return [pretty_function componentsSeparatedByString:@" "][0];
-}
 
 @end
