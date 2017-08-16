@@ -7,6 +7,7 @@
 //
 
 #import "BarItem.h"
+#import "CBHeader.h"
 
 @interface BarItem ()
 

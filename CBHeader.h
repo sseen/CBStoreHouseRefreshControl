@@ -28,16 +28,26 @@ extern  const CGFloat kdisappearDuration               ;
 extern  const CGFloat krelativeHeightFactor            ;
 
 
+#define LogSSS      @"HH:mm:ss.SSS"
+
 #ifdef __OBJC__
 #define LOGDEBUG 0
 #ifdef LOGDEBUG
 #define NSLog(format, ...) do {                                             \
-fprintf(stderr, "[%s line.%d]%s>",     \
-[[SSNDateTime dateToStringUseFormatter:[NSDate date] formatter:LogSSS] UTF8String], \
-__LINE__, __PRETTY_FUNCTION__);                        \
+fprintf(stderr, "[%s line.%d]%s] ",     \
+[[CBHeader dateToStringUseFormatter:[NSDate date] formatter:LogSSS] UTF8String], \
+__LINE__, [[CBHeader logFilename] UTF8String]);                        \
 printf("%s\n", [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String]);           \
 } while (0)
 #else
 #define NSLog(format, ...) nil
 #endif
 #endif
+
+@interface CBHeader : NSObject
+
++ (NSString *)dateToStringUseFormatter:(NSDate *)date formatter:(NSString *)formatter ;
+
++ (NSString *)logFilename;
+
+@end

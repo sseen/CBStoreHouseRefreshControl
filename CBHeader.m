@@ -7,6 +7,8 @@
 //
 
 #import "CBHeader.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
  const CGFloat kloadingIndividualAnimationTiming  = 0.8;
  const CGFloat kbarDarkAlpha                      = 0.4;
@@ -20,3 +22,24 @@ NSString *const startPointKey   = @"startPoints";
 NSString *const endPointKey     = @"endPoints";
 NSString *const xKey            = @"x";
 NSString *const yKey            = @"y";
+
+
+@implementation CBHeader
+
++ (NSString *)dateToStringUseFormatter:(NSDate *)date formatter:(NSString *)formatter {
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"]];
+    [format setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    format.dateFormat = formatter;
+    NSString *returnStr = [format stringFromDate:date];
+    
+    return returnStr;
+}
+
++ (NSString *)logFilename {
+    NSString *pretty_function = [NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__];
+    
+    return [pretty_function componentsSeparatedByString:@" "][0];
+}
+
+@end
