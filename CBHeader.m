@@ -12,7 +12,7 @@
 
  const CGFloat kloadingIndividualAnimationTiming  = 0.8;
  const CGFloat kbarDarkAlpha                      = 0.4;
- const CGFloat kloadingTimingOffset               = 0.1;
+ const CGFloat kloadingTimingOffset               = 0.2; // baritems less equale 4 this will be long than 0.1, 0.2 normal for example
  const CGFloat kdisappearDuration                 = 1.2;
  const CGFloat krelativeHeightFactor              = 2.f/5.f;
 

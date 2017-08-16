@@ -196,7 +196,6 @@
             realProgress = 0;
         else
             realProgress = MIN(1, (progress - startPadding)/self.internalAnimationFactor);
-        NSLog(@"sso %f", realProgress);
         //NSLog(@"startPadding %f:%f, %@ progress %f, %f, %f",startPadding,endPadding, barItem, realProgress,  barItem.translationX*(1-realProgress), self.sHeight - self.dropHeight*(1-realProgress));
         
         if (progress == 1 || progress >= 1 - endPadding) {
@@ -218,6 +217,7 @@
 
 - (void)startLoadingAnimation
 {
+    NSLog(@"ook");
     if (self.reverseLoadingAnimation) {
         int count = (int)self.barItems.count;
         for (int i= count-1; i>=0; i--) {
@@ -235,11 +235,14 @@
 
 - (void)barItemAnimation:(BarItem*)barItem
 {
+    
     if (self.state == CBStoreHouseRefreshControlStateRefreshing) {
         barItem.alpha = 1;
         [barItem.layer removeAllAnimations];
         [UIView animateWithDuration:kloadingIndividualAnimationTiming animations:^{
+            
             barItem.alpha = kbarDarkAlpha;
+            NSLog(@"%f", barItem.alpha);
         } completion:^(BOOL finished) {
             
         }];
@@ -249,7 +252,8 @@
             isLastOne = barItem.tag == 0;
         else
             isLastOne = barItem.tag == self.barItems.count-1;
-        
+    
+        NSLog(@"%d, %d", isLastOne, self.state == CBStoreHouseRefreshControlStateRefreshing);
         if (isLastOne && self.state == CBStoreHouseRefreshControlStateRefreshing) {
             [self startLoadingAnimation];
         }

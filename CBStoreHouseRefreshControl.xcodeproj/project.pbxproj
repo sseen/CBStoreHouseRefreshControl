@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		920C6C301F42F80B00803699 /* CBHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 920C6C2F1F42F80B00803699 /* CBHeader.m */; };
+		92BEF12F1F44466600BC6888 /* bottom.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92BEF12E1F44466600BC6888 /* bottom.plist */; };
+		92BEF1311F444D5D00BC6888 /* A.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92BEF1301F444D5D00BC6888 /* A.plist */; };
 		92C2CEB51F42F3C20019C31D /* CBStoreHouseRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2CEB41F42F3C20019C31D /* CBStoreHouseRefreshControl.m */; };
 		92C2CEB91F42F4C10019C31D /* CBStoreHouseInfinitRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2CEB81F42F4C10019C31D /* CBStoreHouseInfinitRefreshControl.m */; };
 		92DDBB7E1F3D9A8700D503A5 /* zf.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92DDBB7D1F3D9A8700D503A5 /* zf.plist */; };
@@ -35,6 +37,8 @@
 /* Begin PBXFileReference section */
 		920C6C2E1F42F80B00803699 /* CBHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBHeader.h; sourceTree = "<group>"; };
 		920C6C2F1F42F80B00803699 /* CBHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBHeader.m; sourceTree = "<group>"; };
+		92BEF12E1F44466600BC6888 /* bottom.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bottom.plist; sourceTree = "<group>"; };
+		92BEF1301F444D5D00BC6888 /* A.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = A.plist; sourceTree = "<group>"; };
 		92C2CEB31F42F3C20019C31D /* CBStoreHouseRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBStoreHouseRefreshControl.h; path = Class/CBStoreHouseRefreshControl.h; sourceTree = "<group>"; };
 		92C2CEB41F42F3C20019C31D /* CBStoreHouseRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBStoreHouseRefreshControl.m; path = Class/CBStoreHouseRefreshControl.m; sourceTree = "<group>"; };
 		92C2CEB71F42F4C10019C31D /* CBStoreHouseInfinitRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBStoreHouseInfinitRefreshControl.h; path = Class/CBStoreHouseInfinitRefreshControl.h; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 		FFB290C519FCC1320058F2BF /* CBStoreHouseRefreshControl */ = {
 			isa = PBXGroup;
 			children = (
+				92BEF1301F444D5D00BC6888 /* A.plist */,
+				92BEF12E1F44466600BC6888 /* bottom.plist */,
 				92DDBB7D1F3D9A8700D503A5 /* zf.plist */,
 				FFFB8C9B1A0325D50007988E /* AKTA.plist */,
 				FF6F542C1A086CC200BE5C52 /* storehouse.plist */,
@@ -239,6 +245,8 @@
 				FFB290D419FCC1320058F2BF /* Images.xcassets in Resources */,
 				92DDBB7E1F3D9A8700D503A5 /* zf.plist in Resources */,
 				FF6F542D1A086CC200BE5C52 /* storehouse.plist in Resources */,
+				92BEF12F1F44466600BC6888 /* bottom.plist in Resources */,
+				92BEF1311F444D5D00BC6888 /* A.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

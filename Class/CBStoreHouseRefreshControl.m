@@ -209,6 +209,7 @@
 
 - (void)startLoadingAnimation
 {
+    NSLog(@"ok");
     if (self.reverseLoadingAnimation) {
         int count = (int)self.barItems.count;
         for (int i= count-1; i>=0; i--) {
@@ -230,6 +231,7 @@
         barItem.alpha = 1;
         [barItem.layer removeAllAnimations];
         [UIView animateWithDuration:kloadingIndividualAnimationTiming animations:^{
+            
             barItem.alpha = kbarDarkAlpha;
         } completion:^(BOOL finished) {
             
@@ -240,7 +242,8 @@
             isLastOne = barItem.tag == 0;
         else
             isLastOne = barItem.tag == self.barItems.count-1;
-            
+        
+        NSLog(@"%d, %d", isLastOne, self.state == CBStoreHouseRefreshControlStateRefreshing);
         if (isLastOne && self.state == CBStoreHouseRefreshControlStateRefreshing) {
             [self startLoadingAnimation];
         }
@@ -249,7 +252,6 @@
 
 - (void)updateDisappearAnimation
 {
-    NSLog(@"sso");
     if (self.disappearProgress >= 0 && self.disappearProgress <= 1) {
         self.disappearProgress -= 1/60.f/kdisappearDuration;
         //60.f means this method get called 60 times per second

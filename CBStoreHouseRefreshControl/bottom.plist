@@ -4,15 +4,17 @@
 <dict>
 	<key>startPoints</key>
 	<array>
-		<string>{22,0}</string>
-		<string>{22,0}</string>
-		<string>{30,0}</string>
+		<string>{12,28}</string>
+		<string>{0,21}</string>
+		<string>{12,14}</string>
+		<string>{0,21}</string>
 	</array>
 	<key>endPoints</key>
 	<array>
-		<string>{0,30}</string>
-		<string>{30,0}</string>
-		<string>{52,30}</string>
+		<string>{24,21}</string>
+		<string>{12,28}</string>
+		<string>{24,21}</string>
+		<string>{12,14}</string>
 	</array>
 </dict>
 </plist>
